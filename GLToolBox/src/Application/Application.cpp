@@ -15,7 +15,7 @@ namespace GLToolBox
         shutDown();
     }
 
-    void Application::init()
+    void Application::init(int version_major, int version_minor, OpenGLProfile opengl_profile)
     {
         Log::init();
 
@@ -25,9 +25,19 @@ namespace GLToolBox
             return;
         }
 
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, version_major);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, version_minor);
+        switch (opengl_profile)
+        {
+        case OpenGLProfile::CORE:
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+            break;
+        case OpenGLProfile::COMPAT:
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+            break;
+        default:
+            LOG_ERROR("未知 OpenGLProfile");
+        }
 
         m_Window = glfwCreateWindow(m_Width, m_Height, m_WindowName, nullptr, nullptr);
         if (m_Window == nullptr)

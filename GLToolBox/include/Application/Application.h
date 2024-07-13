@@ -18,6 +18,15 @@ namespace GLToolBox
     {
     public:
         /**
+         * @brief 枚举 OpenGLProfile，用于初始化时设置
+         *
+         */
+        enum class OpenGLProfile
+        {
+            CORE = 0,
+            COMPAT
+        };
+        /**
          * @brief Construct a new Application object
          *
          * @param windowName
@@ -35,10 +44,12 @@ namespace GLToolBox
         /**
          * @brief 用于初始化程序 （创建窗口、初始化glad）
          *
-         * @return true
-         * @return false
+         * @param version_major
+         * @param version_minor
+         * @param opengl_profile
          */
-        virtual void init();
+        virtual void init(int version_major = 4, int version_minor = 5,
+                          OpenGLProfile opengl_profile = OpenGLProfile::CORE);
 
         /**
          * @brief 程序循环
