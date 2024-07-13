@@ -15,24 +15,11 @@ void DemoApp::init()
     Application::init();
 
     VAO = std::make_shared<VertexArray>();
+    m_Shader = std::make_shared<Shader>("assets/shaders/shader1.glsl");
 
-    float vertices[] = {
-        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
-        -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
-        0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-        0.5f, 0.5f, 0.0f, 1.0f, 1.0f};
-    std::shared_ptr<VertexBuffer> VBO = std::make_shared<VertexBuffer>(vertices, sizeof(vertices));
-    BufferLayout layout = {
-        {"aPos", ShaderDataType::Float3},
-        {"aTexCrood", ShaderDataType::Float2}};
-    VBO->SetLayout(layout);
-    VAO->AddVertexBuffer(VBO);
-
-    unsigned int indices[] = {0, 1, 2, 1, 2, 3};
+    unsigned int indices[] = {0, 1, 2};
     std::shared_ptr<IndexBuffer> EBO = std::make_shared<IndexBuffer>(indices, sizeof(indices) / sizeof(unsigned int));
     VAO->SetIndexBuffer(EBO);
-
-    m_Shader = std::make_shared<Shader>("assets/shaders/Demo1.glsl");
 }
 
 void DemoApp::preUpdate()
@@ -43,12 +30,21 @@ void DemoApp::preUpdate()
     glClearColor(r, g, b, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    m_Shader->Bind();
-    m_Shader->SetFloat4("u_Color", {g, b, r, 1.0f});
+    float offset[] = {
+        r - 0.5f, g - 0.5f, 0.0f, 0.0f, r, g, b, 1.0f,
+        r - 0.5f, g - 0.5f, 0.0f, 0.0f, g, b, r, 1.0f,
+        r - 0.5f, g - 0.5f, 0.0f, 0.0f, b, r, g, 1.0f};
+    std::shared_ptr<VertexBuffer> VBO = std::make_shared<VertexBuffer>(offset, sizeof(offset));
+    BufferLayout layout = {
+        {"offset", ShaderDataType::Float4},
+        {"color", ShaderDataType::Float4}};
+    VBO->SetLayout(layout);
+    VAO->AddVertexBuffer(VBO);
 }
 
 void DemoApp::update()
 {
+    m_Shader->Bind();
     VAO->Bind();
     glDrawElements(GL_TRIANGLES, VAO->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 }

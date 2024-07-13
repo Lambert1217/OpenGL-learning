@@ -15,4 +15,5 @@ add_subdirectory(${ROOTPATH}/GLToolBox)
 
 # Demos
 add_subdirectory(${ROOTPATH}/Demos/Demo1)
+add_subdirectory(${ROOTPATH}/Demos/Demo2)
 
