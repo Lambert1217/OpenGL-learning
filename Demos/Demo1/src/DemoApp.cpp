@@ -10,10 +10,8 @@ DemoApp::DemoApp(const char *windowName, unsigned int width, unsigned int height
 {
 }
 
-void DemoApp::init(int version_major, int version_minor, OpenGLProfile opengl_profile)
+void DemoApp::prepareData()
 {
-    Application::init();
-
     VAO = std::make_shared<VertexArray>();
     m_Shader = std::make_shared<Shader>("assets/shaders/shader1.glsl");
 

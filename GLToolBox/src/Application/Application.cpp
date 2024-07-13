@@ -62,7 +62,12 @@ namespace GLToolBox
 
         glEnable(GL_DEPTH_TEST);
 
+        prepareData();
         LOG_INFO("程序初始化成功");
+    }
+
+    void Application::prepareData()
+    {
     }
 
     void Application::run()

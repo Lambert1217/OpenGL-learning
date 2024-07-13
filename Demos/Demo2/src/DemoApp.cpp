@@ -13,10 +13,8 @@ DemoApp::DemoApp(const char *windowName, unsigned int width, unsigned int height
 {
 }
 
-void DemoApp::init(int version_major, int version_minor, OpenGLProfile opengl_profile)
+void DemoApp::prepareData()
 {
-    Application::init(version_major, version_minor, opengl_profile);
-
     // 计算焦点坐标
     float c = glm::sqrt(glm::pow(a, 2) - glm::pow(b, 2));
     F1x = -c;

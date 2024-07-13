@@ -52,6 +52,12 @@ namespace GLToolBox
                           OpenGLProfile opengl_profile = OpenGLProfile::CORE);
 
         /**
+         * @brief 用于准备数据（会在init()中末尾调用）
+         *
+         */
+        virtual void prepareData();
+
+        /**
          * @brief 程序循环
          *
          */
