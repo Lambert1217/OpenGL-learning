@@ -6,7 +6,8 @@ class DemoApp : public GLToolBox::Application
 {
 public:
     DemoApp(const char *windowName = "DemoApp", unsigned int width = 1600, unsigned int height = 1000);
-    virtual void init() override;
+    virtual void init(int version_major = 4, int version_minor = 5,
+                      OpenGLProfile opengl_profile = OpenGLProfile::CORE) override;
     virtual void preUpdate() override;
     virtual void update() override;
 

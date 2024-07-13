@@ -10,7 +10,7 @@ DemoApp::DemoApp(const char *windowName, unsigned int width, unsigned int height
 {
 }
 
-void DemoApp::init()
+void DemoApp::init(int version_major, int version_minor, OpenGLProfile opengl_profile)
 {
     Application::init();
 
